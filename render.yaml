@@ -1,0 +1,24 @@
+# Render Blueprint: New -> Blueprint -> pick the backend repo. Secrets are entered in the Render dashboard, never committed.
+services:
+  - type: web
+    name: telecom-backend
+    runtime: docker
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_URL            # jdbc:mysql://<host>:<port>/<db>?sslMode=REQUIRED&serverTimezone=UTC
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ALLOWED_ORIGINS   # your Vercel URL, e.g. https://telecom-xyz.vercel.app
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SEED_DEMO
+        value: "false"
